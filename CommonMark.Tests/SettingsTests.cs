@@ -18,5 +18,19 @@ namespace CommonMark.Tests
             settings.RenderSoftLineBreaksAsLineBreaks = true;
             Helpers.ExecuteTest("A\nB\nC", "<p>A<br />\nB<br />\nC</p>", settings);
         }
+
+        [TestMethod]
+        [TestCategory("Inlines - Soft line break")]
+        public void RenderEmptyLines()
+        {
+            var settings = CommonMarkSettings.Default.Clone();
+            settings.RenderSoftLineBreaksAsLineBreaks = true;
+            settings.RenderEmptyLines = true;
+            Helpers.ExecuteTest("A\n\nB\nC", "<p>A<br />\n<br />\nB<br />\nC</p>", settings);
+
+            settings.RenderSoftLineBreaksAsLineBreaks = false;
+            settings.RenderEmptyLines = true;
+            Helpers.ExecuteTest("A\n\nB\nC", "<p>A</p>\n<p></p>\n<p>B</p>\n<p>C</p>", settings);
+        }
     }
 }

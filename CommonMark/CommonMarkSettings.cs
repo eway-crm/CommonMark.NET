@@ -47,6 +47,11 @@ namespace CommonMark
         public bool RenderSoftLineBreaksAsLineBreaks { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether empty lines should be rendered.
+        /// </summary>
+        public bool RenderEmptyLines { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the parser tracks precise positions in the source data for
         /// block and inline elements. This is disabled by default because it incurs an additional performance cost to
         /// keep track of the original position.

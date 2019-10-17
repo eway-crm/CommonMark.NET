@@ -120,6 +120,12 @@ namespace CommonMark.Formatters
             this._inner.Write(this._newline);
         }
 
+        public void WriteEmptyLine()
+        {
+            this.WriteLineConstant("</p>");
+            this.WriteConstant("<p>");
+        }
+
         public void Write(char[] value, int index, int count)
         {
             if (value == null || count == 0)

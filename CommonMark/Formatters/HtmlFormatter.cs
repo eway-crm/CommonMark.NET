@@ -361,9 +361,20 @@ namespace CommonMark.Formatters
                 case InlineTag.SoftBreak:
                     ignoreChildNodes = true;
                     if (Settings.RenderSoftLineBreaksAsLineBreaks)
+                    {
                         WriteLine("<br />");
+                    }
                     else
-                        WriteLine();
+                    {
+                        if (Settings.RenderEmptyLines)
+                        {
+                            _target.WriteEmptyLine();
+                        }
+                        else
+                        {
+                            WriteLine();
+                        }
+                    }
                     break;
 
                 case InlineTag.Code:

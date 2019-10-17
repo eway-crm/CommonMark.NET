@@ -608,7 +608,7 @@ namespace CommonMark.Parser
 
                     case BlockTag.Paragraph:
                         {
-                            if (blank)
+                            if (blank && !line.AllowEmptyLines)
                             {
                                 container.IsLastLineBlank = true;
                                 all_matched = false;
@@ -864,7 +864,7 @@ namespace CommonMark.Parser
                     }
 
                 }
-                else if (blank)
+                else if (blank && !line.AllowEmptyLines)
                 {
 
                     // ??? do nothing

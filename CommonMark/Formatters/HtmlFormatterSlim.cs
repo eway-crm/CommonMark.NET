@@ -529,9 +529,20 @@ namespace CommonMark.Formatters
 
                     case InlineTag.SoftBreak:
                         if (settings.RenderSoftLineBreaksAsLineBreaks)
+                        {
                             writer.WriteLineConstant("<br />");
+                        }
                         else
-                            writer.WriteLine();
+                        {
+                            if (settings.RenderEmptyLines)
+                            {
+                                writer.WriteEmptyLine();
+                            }
+                            else
+                            {
+                                writer.WriteLine();
+                            }
+                        }
                         break;
 
                     case InlineTag.Code:

@@ -16,7 +16,7 @@ namespace CommonMark
         None = 0,
 
         /// <summary>
-        /// The parser will recognize syntax <c>~~foo~~</c> that will be rendered as <c>&lt;del&gt;foo&lt;/del&gt;</c>.
+        /// The parser will recognize syntax <c>~~foo~~</c> that will be rendered as <c>&lt;s&gt;foo&lt;/s&gt;</c>.
         /// </summary>
         StrikethroughTilde = 1,
 

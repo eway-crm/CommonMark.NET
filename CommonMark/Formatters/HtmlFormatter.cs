@@ -497,14 +497,14 @@ namespace CommonMark.Formatters
 
                     if (isOpening)
                     {
-                        Write("<del");
+                        Write("<s");
                         if (Settings.TrackSourcePosition) WritePositionAttribute(inline);
                         Write('>');
                     }
 
                     if (isClosing)
                     {
-                        Write("</del>");
+                        Write("</s>");
                     }
                     break;
 

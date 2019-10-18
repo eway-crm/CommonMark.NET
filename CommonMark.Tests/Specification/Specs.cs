@@ -3622,9 +3622,9 @@ namespace CommonMark.Tests.Specification
 
         // These rules are designed to allow us to work with tags that
         // can function as either block-level or inline-level tags.
-        // The `<del>` tag is a nice example.  We can surround content with
-        // `<del>` tags in three different ways.  In this case, we get a raw
-        // HTML block, because the `<del>` tag is on a line by itself:
+        // The `<s>` tag is a nice example.  We can surround content with
+        // `<s>` tags in three different ways.  In this case, we get a raw
+        // HTML block, because the `<s>` tag is on a line by itself:
         [TestMethod]
         [TestCategory("Leaf blocks - HTML blocks")]
         //[Timeout(1000)]
@@ -3634,21 +3634,21 @@ namespace CommonMark.Tests.Specification
             // Section: Leaf blocks - HTML blocks
             //
             // The following CommonMark:
-            //     <del>
+            //     <s>
             //     *foo*
-            //     </del>
+            //     </s>
             //
             // Should be rendered as:
-            //     <del>
+            //     <s>
             //     *foo*
-            //     </del>
+            //     </s>
 
             Helpers.Log("Example {0}" + Environment.NewLine + "Section: {0}" + Environment.NewLine, 132, "Leaf blocks - HTML blocks");
-			Helpers.ExecuteTest("<del>\n*foo*\n</del>", "<del>\n*foo*\n</del>");
+			Helpers.ExecuteTest("<s>\n*foo*\n</s>", "<s>\n*foo*\n</s>");
         }
 
         // In this case, we get a raw HTML block that just includes
-        // the `<del>` tag (because it ends with the following blank
+        // the `<s>` tag (because it ends with the following blank
         // line).  So the contents get interpreted as CommonMark:
         [TestMethod]
         [TestCategory("Leaf blocks - HTML blocks")]
@@ -3659,22 +3659,22 @@ namespace CommonMark.Tests.Specification
             // Section: Leaf blocks - HTML blocks
             //
             // The following CommonMark:
-            //     <del>
+            //     <s>
             //     
             //     *foo*
             //     
-            //     </del>
+            //     </s>
             //
             // Should be rendered as:
-            //     <del>
+            //     <s>
             //     <p><em>foo</em></p>
-            //     </del>
+            //     </s>
 
             Helpers.Log("Example {0}" + Environment.NewLine + "Section: {0}" + Environment.NewLine, 133, "Leaf blocks - HTML blocks");
-			Helpers.ExecuteTest("<del>\n\n*foo*\n\n</del>", "<del>\n<p><em>foo</em></p>\n</del>");
+			Helpers.ExecuteTest("<s>\n\n*foo*\n\n</s>", "<s>\n<p><em>foo</em></p>\n</s>");
         }
 
-        // Finally, in this case, the `<del>` tags are interpreted
+        // Finally, in this case, the `<s>` tags are interpreted
         // as [raw HTML] *inside* the CommonMark paragraph.  (Because
         // the tag is not on a line by itself, we get inline HTML
         // rather than an [HTML block].)
@@ -3687,13 +3687,13 @@ namespace CommonMark.Tests.Specification
             // Section: Leaf blocks - HTML blocks
             //
             // The following CommonMark:
-            //     <del>*foo*</del>
+            //     <s>*foo*</s>
             //
             // Should be rendered as:
-            //     <p><del><em>foo</em></del></p>
+            //     <p><s><em>foo</em></s></p>
 
             Helpers.Log("Example {0}" + Environment.NewLine + "Section: {0}" + Environment.NewLine, 134, "Leaf blocks - HTML blocks");
-			Helpers.ExecuteTest("<del>*foo*</del>", "<p><del><em>foo</em></del></p>");
+			Helpers.ExecuteTest("<s>*foo*</s>", "<p><s><em>foo</em></s></p>");
         }
 
         // HTML tags designed to contain literal content

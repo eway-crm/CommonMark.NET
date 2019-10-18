@@ -44,35 +44,35 @@ namespace CommonMark.Tests
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample1()
         {
-            Helpers.ExecuteTest("foo ~~bar~~", "<p>foo <del>bar</del></p>", Settings);
+            Helpers.ExecuteTest("foo ~~bar~~", "<p>foo <s>bar</s></p>", Settings);
         }
 
         [TestMethod]
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample2()
         {
-            Helpers.ExecuteTest("foo ~~~bar~~", "<p>foo ~<del>bar</del></p>", Settings);
+            Helpers.ExecuteTest("foo ~~~bar~~", "<p>foo ~<s>bar</s></p>", Settings);
         }
 
         [TestMethod]
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample3()
         {
-            Helpers.ExecuteTest("foo ~~~~bar~~ asd~~", "<p>foo <del><del>bar</del> asd</del></p>", Settings);
+            Helpers.ExecuteTest("foo ~~~~bar~~ asd~~", "<p>foo <s><s>bar</s> asd</s></p>", Settings);
         }
 
         [TestMethod]
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample4()
         {
-            Helpers.ExecuteTest("foo ~~*bar~~*", "<p>foo <del>*bar</del>*</p>", Settings);
+            Helpers.ExecuteTest("foo ~~*bar~~*", "<p>foo <s>*bar</s>*</p>", Settings);
         }
 
         [TestMethod]
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample5()
         {
-            Helpers.ExecuteTest("foo *~~bar~~*", "<p>foo <em><del>bar</del></em></p>", Settings);
+            Helpers.ExecuteTest("foo *~~bar~~*", "<p>foo <em><s>bar</s></em></p>", Settings);
         }
 
         [TestMethod]
@@ -86,7 +86,7 @@ namespace CommonMark.Tests
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample7()
         {
-            Helpers.ExecuteTest("~~bar~~~", "<p><del>bar</del>~</p>", Settings);
+            Helpers.ExecuteTest("~~bar~~~", "<p><s>bar</s>~</p>", Settings);
         }
 
         [TestMethod]
@@ -101,7 +101,7 @@ namespace CommonMark.Tests
         [TestCategory("Inlines - Strikethrough")]
         public void StrikethroughExample9()
         {
-            Helpers.ExecuteTest("foo ~~~~bar~~~~", "<p>foo <del><del>bar</del></del></p>", Settings);
+            Helpers.ExecuteTest("foo ~~~~bar~~~~", "<p>foo <s><s>bar</s></s></p>", Settings);
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace CommonMark.Tests
         public void StrikethroughExample10()
         {
             // '[' char in the middle will delay the ~~ match to the post-process phase.
-            Helpers.ExecuteTest("foo ~~~~ba[r~~~~", "<p>foo <del><del>ba[r</del></del></p>", Settings);
+            Helpers.ExecuteTest("foo ~~~~ba[r~~~~", "<p>foo <s><s>ba[r</s></s></p>", Settings);
         }
 
         [TestMethod]
@@ -117,7 +117,7 @@ namespace CommonMark.Tests
         public void StrikethroughExample10a()
         {
             // '[' char in the middle will delay the ~~ match to the post-process phase.
-            Helpers.ExecuteTest("foo ~~~~ba[r~~", "<p>foo ~~<del>ba[r</del></p>", Settings);
+            Helpers.ExecuteTest("foo ~~~~ba[r~~", "<p>foo ~~<s>ba[r</s></p>", Settings);
         }
 
         [TestMethod]
@@ -125,7 +125,7 @@ namespace CommonMark.Tests
         public void StrikethroughExample10b()
         {
             // '[' char in the middle will delay the ~~ match to the post-process phase.
-            Helpers.ExecuteTest("foo ~~ba[r~~~~", "<p>foo <del>ba[r</del>~~</p>", Settings);
+            Helpers.ExecuteTest("foo ~~ba[r~~~~", "<p>foo <s>ba[r</s>~~</p>", Settings);
         }
 
         [TestMethod]
@@ -133,7 +133,7 @@ namespace CommonMark.Tests
         public void StrikethroughExample10c()
         {
             // '[' char in the middle will delay the ~~ match to the post-process phase.
-            Helpers.ExecuteTest("foo ~~ba[r~~~", "<p>foo <del>ba[r</del>~</p>", Settings);
+            Helpers.ExecuteTest("foo ~~ba[r~~~", "<p>foo <s>ba[r</s>~</p>", Settings);
         }
 
         [TestMethod]
@@ -141,7 +141,7 @@ namespace CommonMark.Tests
         public void StrikethroughExample10d()
         {
             // '[' char in the middle will delay the ~~ match to the post-process phase.
-            Helpers.ExecuteTest("~~~~[foo~~ bar", "<p>~~<del>[foo</del> bar</p>", Settings);
+            Helpers.ExecuteTest("~~~~[foo~~ bar", "<p>~~<s>[foo</s> bar</p>", Settings);
         }
     }
 }

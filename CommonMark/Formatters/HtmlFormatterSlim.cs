@@ -633,10 +633,10 @@ namespace CommonMark.Formatters
                         break;
 
                     case InlineTag.Strikethrough:
-                        writer.WriteConstant("<del");
+                        writer.WriteConstant("<s");
                         if (trackPositions) PrintPosition(writer, inline);
                         writer.Write('>');
-                        stackLiteral = "</del>";
+                        stackLiteral = "</s>";
                         visitChildren = true;
                         stackWithinLink = withinLink;
                         break;

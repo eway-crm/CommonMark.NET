@@ -282,7 +282,7 @@ namespace CommonMark.Formatters
                         break;
 
                     case InlineTag.Strikethrough:
-                        writer.Write("del");
+                        writer.Write("s");
                         PrintPosition(trackPositions, writer, inline);
                         break;
 

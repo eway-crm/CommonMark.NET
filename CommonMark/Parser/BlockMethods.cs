@@ -111,7 +111,7 @@ namespace CommonMark.Parser
                         break;
 
                     var subj = new Subject(b.Top.Document);
-                    sc.FillSubject(subj);
+                    sc.FillSubject(subj, line.AllowEmptyLines);
                     var origPos = subj.Position;
                     while (subj.Position < subj.Buffer.Length 
                         && subj.Buffer[subj.Position] == '[' 
@@ -275,7 +275,7 @@ namespace CommonMark.Parser
                     sc = block.StringContent;
                     if (sc != null)
                     {
-                        sc.FillSubject(subj);
+                        sc.FillSubject(subj, settings.RenderEmptyLines);
                         delta = subj.Position;
 
                         block.InlineContent = InlineMethods.parse_inlines(subj, parsers, specialCharacters);
@@ -532,7 +532,7 @@ namespace CommonMark.Parser
                             {
                                 AdvanceOffset(ln, container.ListData.MarkerOffset + container.ListData.Padding, true, ref offset, ref column, ref remainingSpaces);
                             }
-                            else if (blank && container.FirstChild != null)
+                            else if (blank && !line.AllowEmptyLines && container.FirstChild != null)
                             {
                                 // if container->first_child is NULL, then the opening line
                                 // of the list item was blank after the list marker; in this

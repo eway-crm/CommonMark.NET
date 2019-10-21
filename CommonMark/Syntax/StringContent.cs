@@ -94,7 +94,7 @@ namespace CommonMark.Syntax
         /// Note that this method calls <see cref="TrimEnd"/> thus changing the source data as well.
         /// </summary>
         /// <param name="subj">The subject instance which will be reinitialized with the data from this instance.</param>
-        internal void FillSubject(Parser.Subject subj)
+        internal void FillSubject(Parser.Subject subj, bool allowEmptyLines)
         {
             subj.LastInline = null;
             subj.LastPendingInline = null;
@@ -104,7 +104,10 @@ namespace CommonMark.Syntax
             subj.DebugStartIndex = 0;
 #endif
 
-            this.TrimEnd();
+            if (!allowEmptyLines)
+            {
+                this.TrimEnd();
+            }
 
             if (this._partCounter == 0)
             {

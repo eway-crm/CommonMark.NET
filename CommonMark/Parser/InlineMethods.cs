@@ -20,7 +20,12 @@ namespace CommonMark.Parser
             var placeholderBracket = 0 != (settings.AdditionalFeatures & CommonMarkAdditionalFeatures.PlaceholderBracket);
 
             var p = new Func<Subject, Inline>[strikethroughTilde ? 127 : 97];
-            p['\n'] = handle_newline;
+
+            if (settings.RenderEmptyLines)
+                p['\n'] = (Subject subject) => handle_newline(subject, true);
+            else
+                p['\n'] = (Subject subject) => handle_newline(subject, false);
+
             p['`'] = handle_backticks;
             p['\\'] = handle_backslash;
             p['&'] = HandleEntity;
@@ -980,7 +985,7 @@ namespace CommonMark.Parser
 
         // Parse a hard or soft linebreak, returning an inline.
         // Assumes the subject has a newline at the current position.
-        static Inline handle_newline(Subject subj)
+        static Inline handle_newline(Subject subj, bool allowEmptyLines)
         {
             int nlpos = subj.Position;
 
@@ -991,6 +996,10 @@ namespace CommonMark.Parser
             var len = subj.Length;
             while (subj.Position < len && subj.Buffer[subj.Position] == ' ')
                 subj.Position++;
+
+            // remove last line, because TrimEnd is not called
+            if (allowEmptyLines && subj.Length == subj.Position)
+                return null;
 
             if (nlpos > 1 && subj.Buffer[nlpos - 1] == ' ' && subj.Buffer[nlpos - 2] == ' ')
                 return new Inline(InlineTag.LineBreak) { SourcePosition = nlpos - 2, SourceLastPosition = nlpos + 1 };
@@ -1037,6 +1046,9 @@ namespace CommonMark.Parser
                 return null;
 
             var first = ParseInline(subj, parsers, specialCharacters);
+            if (first == null)
+                return null;
+
             subj.LastInline = first.LastSibling;
 
             Inline cur;

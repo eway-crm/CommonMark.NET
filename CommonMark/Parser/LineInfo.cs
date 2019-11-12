@@ -6,15 +6,18 @@ namespace CommonMark.Parser
 {
     internal sealed class LineInfo
     {
-        public LineInfo(bool trackPositions, bool allowEmptyLines)
+        public LineInfo(bool trackPositions, bool allowEmptyLines, bool allowSetextHeadings)
         {
             this.IsTrackingPositions = trackPositions;
             this.AllowEmptyLines = allowEmptyLines;
+            this.AllowSetextHeadings = allowSetextHeadings;
         }
 
         public readonly bool IsTrackingPositions;
 
         public bool AllowEmptyLines { get; }
+
+        public bool AllowSetextHeadings { get; }
 
         public string Line;
 

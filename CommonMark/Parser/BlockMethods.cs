@@ -691,7 +691,7 @@ namespace CommonMark.Parser
                     AdvanceOffset(ln, ln.Length - 1 - offset, false, ref offset, ref column, ref remainingSpaces);
 
                 }
-                else if (!indented 
+                else if (line.AllowThematicBreak && !indented 
                     && !(container.Tag == BlockTag.Paragraph && !all_matched) 
                     && 0 != (Scanner.scan_thematic_break(ln, first_nonspace, ln.Length)))
                 {

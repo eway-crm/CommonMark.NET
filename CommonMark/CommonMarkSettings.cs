@@ -57,6 +57,11 @@ namespace CommonMark
         public bool AllowSetextHeadings { get; set; } = true;
 
         /// <summary>
+        /// Gets or sets a value indicating whether Thematic Breaks are allowed.
+        /// </summary>
+        public bool AllowThematicBreak { get; set; } = true;
+
+        /// <summary>
         /// Gets or sets a value indicating whether the parser tracks precise positions in the source data for
         /// block and inline elements. This is disabled by default because it incurs an additional performance cost to
         /// keep track of the original position.

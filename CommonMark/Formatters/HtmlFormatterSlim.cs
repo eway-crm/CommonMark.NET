@@ -554,8 +554,15 @@ namespace CommonMark.Formatters
                         break;
 
                     case InlineTag.RawHtml:
-                        // cannot output source position for HTML blocks
-                        writer.Write(inline.LiteralContentValue);
+                        if (settings.HtmlEntityEncode)
+                        {
+                            EscapeHtml(inline.LiteralContentValue, writer);
+                        }
+                        else
+                        {
+                            // cannot output source position for HTML blocks
+                            writer.Write(inline.LiteralContentValue);
+                        }
                         break;
 
                     case InlineTag.Link:

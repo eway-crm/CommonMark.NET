@@ -388,8 +388,15 @@ namespace CommonMark.Formatters
 
                 case InlineTag.RawHtml:
                     ignoreChildNodes = true;
-                    // cannot output source position for HTML blocks
-                    Write(inline.LiteralContentValue);
+                    if (Settings.HtmlEntityEncode)
+                    {
+                        WriteEncodedHtml(inline.LiteralContentValue);
+                    }
+                    else
+                    {
+                        // cannot output source position for HTML blocks
+                        Write(inline.LiteralContentValue);
+                    }
                     break;
 
                 case InlineTag.Link:

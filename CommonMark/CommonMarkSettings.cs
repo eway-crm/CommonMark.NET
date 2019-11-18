@@ -73,6 +73,11 @@ namespace CommonMark
         /// </summary>
         public bool TrackSourcePosition { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether reserved characters in HTML will be replaced with character entities.
+        /// </summary>
+        public bool HtmlEntityEncode { get; set; }
+
         private CommonMarkAdditionalFeatures _additionalFeatures;
 
         /// <summary>

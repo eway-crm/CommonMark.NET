@@ -99,7 +99,7 @@ namespace CommonMark
 
             var cur = Syntax.Block.CreateDocument();
             var doc = cur;
-            var line = new LineInfo(settings.TrackSourcePosition, settings.RenderEmptyLines, settings.AllowSetextHeadings, settings.AllowThematicBreak);
+            var line = new LineInfo(settings.TrackSourcePosition, settings);
 
             try
             {

@@ -39,8 +39,20 @@ namespace CommonMark.Tests
         {
             var settings = CommonMarkSettings.Default.Clone();
             settings.HtmlEntityEncode = true;
+            settings.RenderSoftLineBreaksAsLineBreaks = false;
+            settings.RenderEmptyLines = true;
+
+            Helpers.ExecuteTest("This is <b>bold</b> text.", "<p>This is &lt;b&gt;bold&lt;/b&gt; text.</p>", settings);
 
             Helpers.ExecuteTest("<b>Text</b>", "<p>&lt;b&gt;Text&lt;/b&gt;</p>", settings);
+
+            Helpers.ExecuteTest(@"<hr>
+<b>**text**</b>
+<h1>nadpis</h1>",
+
+@"<p>&lt;hr&gt;</p>
+<p>&lt;b&gt;<strong>text</strong>&lt;/b&gt;</p>
+<p>&lt;h1&gt;nadpis&lt;/h1&gt;</p>", settings);
         }
     }
 }

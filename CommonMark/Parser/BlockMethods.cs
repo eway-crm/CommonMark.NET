@@ -111,7 +111,7 @@ namespace CommonMark.Parser
                         break;
 
                     var subj = new Subject(b.Top.Document);
-                    sc.FillSubject(subj, line.AllowEmptyLines);
+                    sc.FillSubject(subj, line.Settings.RenderEmptyLines);
                     var origPos = subj.Position;
                     while (subj.Position < subj.Buffer.Length 
                         && subj.Buffer[subj.Position] == '[' 
@@ -532,7 +532,7 @@ namespace CommonMark.Parser
                             {
                                 AdvanceOffset(ln, container.ListData.MarkerOffset + container.ListData.Padding, true, ref offset, ref column, ref remainingSpaces);
                             }
-                            else if (blank && !line.AllowEmptyLines && container.FirstChild != null)
+                            else if (blank && !line.Settings.RenderEmptyLines && container.FirstChild != null)
                             {
                                 // if container->first_child is NULL, then the opening line
                                 // of the list item was blank after the list marker; in this
@@ -608,7 +608,7 @@ namespace CommonMark.Parser
 
                     case BlockTag.Paragraph:
                         {
-                            if (blank && !line.AllowEmptyLines)
+                            if (blank && !line.Settings.RenderEmptyLines)
                             {
                                 container.IsLastLineBlank = true;
                                 all_matched = false;
@@ -671,7 +671,7 @@ namespace CommonMark.Parser
                     AdvanceOffset(ln, first_nonspace + matched - offset, false, ref offset, ref column, ref remainingSpaces);
 
                 }
-                else if (!indented && curChar == '<' && 
+                else if (!line.Settings.HtmlEntityEncode && !indented && curChar == '<' && 
                     (0 != (matched = (int)Scanner.scan_html_block_start(ln, first_nonspace, ln.Length))
                     || (container.Tag != BlockTag.Paragraph && 0 != (matched = (int)Scanner.scan_html_block_start_7(ln, first_nonspace, ln.Length)))
                     ))
@@ -682,7 +682,7 @@ namespace CommonMark.Parser
                     // note, we don't adjust offset because the tag is part of the text
 
                 }
-                else if (line.AllowSetextHeadings && !indented && container.Tag == BlockTag.Paragraph && (curChar == '=' || curChar == '-')
+                else if (line.Settings.AllowSetextHeadings && !indented && container.Tag == BlockTag.Paragraph && (curChar == '=' || curChar == '-')
                         && 0 != (matched = Scanner.scan_setext_heading_line(ln, first_nonspace, ln.Length)))
                 {
 
@@ -691,7 +691,7 @@ namespace CommonMark.Parser
                     AdvanceOffset(ln, ln.Length - 1 - offset, false, ref offset, ref column, ref remainingSpaces);
 
                 }
-                else if (line.AllowThematicBreak && !indented 
+                else if (line.Settings.AllowThematicBreak && !indented 
                     && !(container.Tag == BlockTag.Paragraph && !all_matched) 
                     && 0 != (Scanner.scan_thematic_break(ln, first_nonspace, ln.Length)))
                 {
@@ -864,7 +864,7 @@ namespace CommonMark.Parser
                     }
 
                 }
-                else if (blank && !line.AllowEmptyLines)
+                else if (blank && !line.Settings.RenderEmptyLines)
                 {
 
                     // ??? do nothing

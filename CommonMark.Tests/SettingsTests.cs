@@ -30,6 +30,8 @@ namespace CommonMark.Tests
 
             settings.RenderSoftLineBreaksAsLineBreaks = false;
             settings.RenderEmptyLines = true;
+            settings.AllowWhiteSpace = true;
+
             Helpers.ExecuteTest("A\n\nB\nC\n\n* A\n* B\n\n\n", "<p>A</p>\n<p></p>\n<p>B</p>\n<p>C</p>\n<p></p>\n<ul>\n<li>A</li>\n<li>B</li>\n</ul>\n<p></p>\n<p></p>", settings);
             Helpers.ExecuteTest("* A\n* B\n\n1. One\n2. Two", "<ul>\n<li>A</li>\n<li>B</li>\n</ul>\n<p></p>\n<ol>\n<li>One</li>\n<li>Two</li>\n</ol>", settings);
         }
@@ -41,6 +43,7 @@ namespace CommonMark.Tests
             settings.HtmlEntityEncode = true;
             settings.RenderSoftLineBreaksAsLineBreaks = false;
             settings.RenderEmptyLines = true;
+            settings.AllowWhiteSpace = true;
 
             Helpers.ExecuteTest("This is <b>bold</b> text.", "<p>This is &lt;b&gt;bold&lt;/b&gt; text.</p>", settings);
 
@@ -53,6 +56,18 @@ namespace CommonMark.Tests
 @"<p>&lt;hr&gt;</p>
 <p>&lt;b&gt;<strong>text</strong>&lt;/b&gt;</p>
 <p>&lt;h1&gt;nadpis&lt;/h1&gt;</p>", settings);
+        }
+
+        [TestMethod]
+        public void TabTest()
+        {
+            var settings = CommonMarkSettings.Default.Clone();
+            settings.HtmlEntityEncode = true;
+            settings.RenderSoftLineBreaksAsLineBreaks = false;
+            settings.RenderEmptyLines = true;
+            settings.AllowWhiteSpace = true;
+
+            Helpers.ExecuteTest(" \t\r\n\r\n\t", "<p> \t</p>\r\n<p></p>\r\n<p>\t</p>", settings);
         }
     }
 }

@@ -504,7 +504,7 @@ namespace CommonMark.Parser
             {
                 container = container.LastChild;
 
-                FindFirstNonspace(ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+                FindFirstNonspace(line.Settings, ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
 
                 indent = first_nonspace_column - column + remainingSpaces;
                 blank = curChar == '\n';
@@ -635,7 +635,7 @@ namespace CommonMark.Parser
                    container.Tag != BlockTag.HtmlBlock)
             {
 
-                FindFirstNonspace(ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+                FindFirstNonspace(line.Settings, ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
 
                 indent = first_nonspace_column - column + remainingSpaces;
                 blank = curChar == '\n';
@@ -778,7 +778,7 @@ namespace CommonMark.Parser
             // what remains at offset is a text line.  add the text to the
             // appropriate container.
 
-            FindFirstNonspace(ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+            FindFirstNonspace(line.Settings, ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
             indent = first_nonspace_column - column;
             blank = curChar == '\n';
 
@@ -923,12 +923,19 @@ namespace CommonMark.Parser
             }
         }
 
-        private static void FindFirstNonspace(string ln, int offset, int column, out int first_nonspace, 
+        private static void FindFirstNonspace(CommonMarkSettings settings, string ln, int offset, int column, out int first_nonspace, 
             out int first_nonspace_column, out char curChar)
         {
             var chars_to_tab = TabSize - (column % TabSize);
             first_nonspace = offset;
             first_nonspace_column = column;
+
+            if (settings.AllowWhiteSpace)
+            {
+                curChar = ln[first_nonspace];
+                return;
+            }
+
             while ((curChar = ln[first_nonspace]) != '\n')
             {
                 if (curChar == ' ')

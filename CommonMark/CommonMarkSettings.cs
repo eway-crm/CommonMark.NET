@@ -62,6 +62,11 @@ namespace CommonMark
         public bool AllowThematicBreak { get; set; } = true;
 
         /// <summary>
+        /// Allow white space characters in text.
+        /// </summary>
+        public bool AllowWhiteSpace { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets a value indicating whether the parser tracks precise positions in the source data for
         /// block and inline elements. This is disabled by default because it incurs an additional performance cost to
         /// keep track of the original position.

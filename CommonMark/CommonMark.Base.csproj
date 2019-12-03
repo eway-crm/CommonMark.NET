@@ -19,8 +19,8 @@
     <Description>https://github.com/eway-crm/CommonMark.NET</Description>
     <Copyright>Copyright © Kārlis Gaņģis 2014-2016</Copyright>
 
-    <Version>0.15.3.2</Version>
-    <FileVersion>0.15.3.2</FileVersion>
+    <Version>0.15.3.3</Version>
+    <FileVersion>0.15.3.3</FileVersion>
 
     <!-- Cannot generate package on all builds because it currently packages an executable built by a downstream project -->
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>

@@ -930,12 +930,6 @@ namespace CommonMark.Parser
             first_nonspace = offset;
             first_nonspace_column = column;
 
-            if (settings.AllowWhiteSpace)
-            {
-                curChar = ln[first_nonspace];
-                return;
-            }
-
             while ((curChar = ln[first_nonspace]) != '\n')
             {
                 if (curChar == ' ')
@@ -955,6 +949,13 @@ namespace CommonMark.Parser
                 {
                     break;
                 }
+            }
+
+            if (curChar == '\n' && settings.AllowWhiteSpace)
+            {
+                first_nonspace = offset;
+                first_nonspace_column = column;
+                curChar = ln[first_nonspace];
             }
         }
     }

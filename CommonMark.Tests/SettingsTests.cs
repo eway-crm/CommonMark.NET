@@ -10,6 +10,17 @@ namespace CommonMark.Tests
     [TestClass]
     public class SettingsTests
     {
+        private CommonMarkSettings GetSettings()
+        {
+            var settings = CommonMarkSettings.Default.Clone();
+            settings.HtmlEntityEncode = true;
+            settings.RenderSoftLineBreaksAsLineBreaks = false;
+            settings.RenderEmptyLines = true;
+            settings.AllowWhiteSpace = true;
+
+            return settings;
+        }
+
         [TestMethod]
         [TestCategory("Inlines - Soft line break")]
         public void RenderSoftLineBreakAsLineBreak()
@@ -39,11 +50,7 @@ namespace CommonMark.Tests
         [TestMethod]
         public void HtmlEntityEncode()
         {
-            var settings = CommonMarkSettings.Default.Clone();
-            settings.HtmlEntityEncode = true;
-            settings.RenderSoftLineBreaksAsLineBreaks = false;
-            settings.RenderEmptyLines = true;
-            settings.AllowWhiteSpace = true;
+            var settings = this.GetSettings();
 
             Helpers.ExecuteTest("This is <b>bold</b> text.", "<p>This is &lt;b&gt;bold&lt;/b&gt; text.</p>", settings);
 
@@ -61,13 +68,25 @@ namespace CommonMark.Tests
         [TestMethod]
         public void TabTest()
         {
-            var settings = CommonMarkSettings.Default.Clone();
-            settings.HtmlEntityEncode = true;
-            settings.RenderSoftLineBreaksAsLineBreaks = false;
-            settings.RenderEmptyLines = true;
-            settings.AllowWhiteSpace = true;
+            var settings = this.GetSettings();
 
             Helpers.ExecuteTest(" \t\r\n\r\n\t", "<p> \t</p>\r\n<p></p>\r\n<p>\t</p>", settings);
+        }
+
+        [TestMethod]
+        public void NumberingListTest()
+        {
+            var settings = this.GetSettings();
+
+            Helpers.ExecuteTest("1. One\r\n2. Two", "<ol>\r\n<li>\r\nOne\r\n</li>\r\n<li>\r\nTwo\r\n</li>\r\n</ol>", settings);
+        }
+
+        [TestMethod]
+        public void BulletListTest()
+        {
+            var settings = this.GetSettings();
+
+            Helpers.ExecuteTest("* A\r\n    * B\r\n* C", "<ul>\r\n<li>A\r\n<ul>\r\n<li>B</li>\r\n</ul>\r\n</li>\r\n<li>C</li>\r\n</ul>", settings);
         }
     }
 }

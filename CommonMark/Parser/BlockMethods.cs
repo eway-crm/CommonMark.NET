@@ -608,7 +608,7 @@ namespace CommonMark.Parser
 
                     case BlockTag.Paragraph:
                         {
-                            if (blank && !line.Settings.RenderEmptyLines)
+                            if (blank && !(line.Settings.RenderSoftLineBreaksAsLineBreaks && line.Settings.RenderEmptyLines))
                             {
                                 container.IsLastLineBlank = true;
                                 all_matched = false;

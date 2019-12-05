@@ -70,7 +70,7 @@ namespace CommonMark.Tests
         {
             var settings = this.GetSettings();
 
-            Helpers.ExecuteTest(" \t\r\n\r\n\t", "<p> \t</p>\r\n<p></p>\r\n<p>\t</p>", settings);
+            Helpers.ExecuteTest(" \t\r\n\r\n\tText", "<p> \t</p>\r\n<p></p>\r\n<p>\tText</p>", settings);
         }
 
         [TestMethod]

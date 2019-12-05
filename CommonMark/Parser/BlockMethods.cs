@@ -504,7 +504,7 @@ namespace CommonMark.Parser
             {
                 container = container.LastChild;
 
-                FindFirstNonspace(line.Settings, ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+                FindFirstNonspace(ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
 
                 indent = first_nonspace_column - column + remainingSpaces;
                 blank = curChar == '\n';
@@ -635,7 +635,7 @@ namespace CommonMark.Parser
                    container.Tag != BlockTag.HtmlBlock)
             {
 
-                FindFirstNonspace(line.Settings, ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+                FindFirstNonspace(ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
 
                 indent = first_nonspace_column - column + remainingSpaces;
                 blank = curChar == '\n';
@@ -778,7 +778,17 @@ namespace CommonMark.Parser
             // what remains at offset is a text line.  add the text to the
             // appropriate container.
 
-            FindFirstNonspace(line.Settings, ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+            if (line.Settings.AllowWhiteSpace)
+            {
+                first_nonspace = offset;
+                first_nonspace_column = column;
+                curChar = ln[first_nonspace];
+            }
+            else
+            {
+                FindFirstNonspace(ln, offset, column, out first_nonspace, out first_nonspace_column, out curChar);
+            }
+
             indent = first_nonspace_column - column;
             blank = curChar == '\n';
 
@@ -923,7 +933,7 @@ namespace CommonMark.Parser
             }
         }
 
-        private static void FindFirstNonspace(CommonMarkSettings settings, string ln, int offset, int column, out int first_nonspace, 
+        private static void FindFirstNonspace(string ln, int offset, int column, out int first_nonspace, 
             out int first_nonspace_column, out char curChar)
         {
             var chars_to_tab = TabSize - (column % TabSize);
@@ -949,13 +959,6 @@ namespace CommonMark.Parser
                 {
                     break;
                 }
-            }
-
-            if (curChar == '\n' && settings.AllowWhiteSpace)
-            {
-                first_nonspace = offset;
-                first_nonspace_column = column;
-                curChar = ln[first_nonspace];
             }
         }
     }

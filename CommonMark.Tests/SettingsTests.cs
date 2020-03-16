@@ -17,6 +17,7 @@ namespace CommonMark.Tests
             settings.RenderSoftLineBreaksAsLineBreaks = false;
             settings.RenderEmptyLines = true;
             settings.AllowWhiteSpace = true;
+            settings.AllowCodeIndent = false;
 
             return settings;
         }
@@ -79,6 +80,16 @@ namespace CommonMark.Tests
             var settings = this.GetSettings();
 
             Helpers.ExecuteTest("1. One\r\n2. Two", "<ol>\r\n<li>\r\nOne\r\n</li>\r\n<li>\r\nTwo\r\n</li>\r\n</ol>", settings);
+        }
+
+        [TestMethod]
+        public void PreTest()
+        {
+            var settings = this.GetSettings();
+
+            Helpers.ExecuteTest(@"       wfdergedgedge
+dgfdgfdgd
+", "<p>       wfdergedgedge</p>\r\n<p>dgfdgfdgd</p>", settings);
         }
 
         [TestMethod]

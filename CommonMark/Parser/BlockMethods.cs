@@ -756,7 +756,7 @@ namespace CommonMark.Parser
                     container = CreateChildBlock(container, line, BlockTag.ListItem, first_nonspace);
                     container.ListData = data;
                 }
-                else if (indented && !maybeLazy && !blank)
+                else if (indented && !maybeLazy && !blank && line.Settings.AllowCodeIndent)
                 {
                     AdvanceOffset(ln, CODE_INDENT, true, ref offset, ref column, ref remainingSpaces);
                     container = CreateChildBlock(container, line, BlockTag.IndentedCode, offset);

@@ -143,5 +143,13 @@ namespace CommonMark.Tests
             // '[' char in the middle will delay the ~~ match to the post-process phase.
             Helpers.ExecuteTest("~~~~[foo~~ bar", "<p>~~<s>[foo</s> bar</p>", Settings);
         }
+
+        [TestMethod]
+        [TestCategory("Inlines - Strikethrough")]
+        public void StrikethroughInfiniteLoop()
+        {
+            string text = "&lt;https://some.domain/rd/BvMWswp~Dv9S~a2MGmIe~yL1XNcqiy75Mv~~~zj~Ov81.gif&gt;\r\n[---002:000447:43745---]";
+            Helpers.ExecuteTest(text, $"<p>{text}</p>", Settings);
+        }
     }
 }

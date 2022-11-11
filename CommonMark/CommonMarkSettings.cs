@@ -15,7 +15,7 @@ namespace CommonMark
         /// <summary>Initializes a new instance of the <see cref="CommonMarkSettings" /> class.</summary>
         [Obsolete("Use CommonMarkSettings.Default.Clone() instead", false)]
         [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public CommonMarkSettings()
+        private CommonMarkSettings()
         { }
 
         /// <summary>

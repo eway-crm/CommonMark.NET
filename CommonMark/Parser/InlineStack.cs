@@ -98,7 +98,8 @@ namespace CommonMark.Parser
                     // interior closer of size 2 does not match opener of size 1 and vice versa.
                     // for more details, see https://github.com/jgm/cmark/commit/c50197bab81d7105c9c790548821b61bcb97a62a
                     var oddMatch = (closerCanOpen || (istack.Flags & InlineStackFlags.CloserOriginally) > 0)
-                        && istack.DelimiterCount != closerDelimiterCount;
+                        && istack.DelimiterCount != closerDelimiterCount
+                        && ((istack.DelimiterCount + closerDelimiterCount) % 3 == 0);
 
                     if (!oddMatch)
                         return istack;
@@ -184,6 +185,7 @@ namespace CommonMark.Parser
             while (ignorePriority > 0)
             {
                 var istack = first;
+                InlineStack lastiopener = null;
                 while (istack != null)
                 {
                     if (istack.Priority >= ignorePriority)
@@ -209,6 +211,14 @@ namespace CommonMark.Parser
                                 if (istack.DelimiterCount > 0)
                                     retry = true;
                             }
+
+                            // Prevent infinite loop
+                            if (lastiopener == iopener)
+                            {
+                                retry = false;
+                            }
+
+                            lastiopener = iopener;
 
                             if (retry)
                             {

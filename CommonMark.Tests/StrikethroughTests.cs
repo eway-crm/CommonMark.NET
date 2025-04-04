@@ -151,5 +151,13 @@ namespace CommonMark.Tests
             string text = "&lt;https://some.domain/rd/BvMWswp~Dv9S~a2MGmIe~yL1XNcqiy75Mv~~~zj~Ov81.gif&gt;\r\n[---002:000447:43745---]";
             Helpers.ExecuteTest(text, $"<p>{text}</p>", Settings);
         }
+
+        [TestMethod]
+        [TestCategory("Inlines - Strikethrough")]
+        public void StrikethroughInfiniteLoop2()
+        {
+            string text = "&lt;https://example.com/YUCu_KNZtBt0f5oBRYy_-w~~/AAQRxRA~/BXyfByNb-g~~&gt; (~73 million) (~71 million) &lt;https://example.com/SkmW6z6fIOpBa-lP5S_1ow~~/&gt;";
+            Helpers.ExecuteTest(text, $"<p>{text}</p>", Settings);
+        }
     }
 }
